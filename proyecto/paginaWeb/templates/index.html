@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalPet</title>
+    <link rel="stylesheet" href="{% static '/paginaweb/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="{% static '/paginaweb/perro.png' %}" alt="perro"> LOCALPET </div>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Ayuda</a>
+        </nav>
+    </header>
+    <h1 class="subtitulo">Bienvenido a LocalPet</h1>
+    <p class="subtitulo">Encuentra a tu mejor amigo o ayuda a reunirlo con su familia</p>
+    <main class="menu">
+        <h1 class="titulo">Explora nuestras opciones</h1>
+        <section class="opciones">
+            <div class="opcion">
+                <h2>Iniciar Sesión</h2>
+                <p>Accede a tu cuenta para gestionar mascotas.</p>
+                <button onclick="window.location.href='{% url 'login' %}'">Ingresar</button>                
+            </div>
+            <div class="opcion2">
+                <h2>Búsqueda de Mascotas</h2>
+                <p>Accede a tu cuenta para gestionar mascotas.</p>
+                <button onclick="window.location.href='{% url 'buscar_mascota_perdida' %}'">Buscar</button>
+            </div>
+            <div class="opcion">
+                <h2>Registro de Mascota</h2>
+                <p>Reporta una mascota perdida o encontrada.</p>
+                <button onclick="window.location.href='{% url 'registro_mascota_perdida' %}'">Registrar</button>
+            </div>
+            
+        </section>
+    </main>
+</body>
+</html>

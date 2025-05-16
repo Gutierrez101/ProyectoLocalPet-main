@@ -1,0 +1,279 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LocalPet</title>
+    <link rel="stylesheet" href="{% static '/paginaweb/Login.css' %}">
+</head>
+<div class="salir">
+    <button onclick="window.location.href='{% url 'index' %}'">Regresar</button>
+
+</div>
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="logo-container">
+                <img src="{% static '/paginaweb/pngegg.png' %}" alt="">
+                <span class="logo-text"><b>LocalPet</b></span>
+                <br><br>
+                
+            </div>
+        </div>
+       
+        <div class="right-side">
+            <h2>Inicie sesión en su cuenta</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="usuario" >Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required >
+                </div>
+                <div class="form-group">
+                    <label for="contraseña" >Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required >
+                </div>
+                
+                <button type="submit" class="btn">Ingresar</button>
+                <div class="form-group">
+                    <br>
+                    <a href='{% url 'new_user' %}'>Crear cuenta</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #e2caa5;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .container-start {
+        background-color: #8b5b2b;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 0px 0px 15px;
+        flex-wrap: wrap;
+    }
+    
+    /*Esto modifica el combo1*/
+    .container-start-combo1 {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .container-start-title {
+        color: white;
+        font-size: 25px;
+        font-weight: bold;
+        margin-left: 25px;
+    }
+    
+    .container-start-logo img {
+        width: 130px;
+        height: 100px;
+    }
+    
+    .container-form {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto; /* Centra el contenedor */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    h1 {
+        margin: 0;
+        font-size: 55px;
+        font-weight: bolder;
+    }
+    
+    /*Esto modifica el combo2*/
+    .container-start-combo2 {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .container-start-buttons {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 15px;
+        margin-right: 25px;
+        gap: 10px;
+    }
+    
+    .container-start-buttons button {
+        background-color: transparent;
+        color: white;
+        font-weight: bolder;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    
+    .container-start-buttons button:hover {
+        text-decoration: underline;
+    }
+    
+    .container-start-logo2 {
+        align-items: center;
+        margin-bottom: 15px;
+        align-self: flex-end;
+        margin-right: 15px;
+    }
+    
+    .container-start-logo2 img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    /*Esto modifica el main*/
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    form {
+        width: 100%;
+        max-width: 800px; /* Aumenta el ancho máximo del formulario */
+    }
+    
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    form input, form select, form textarea, form button {
+        width: 100%;
+        max-width: 700px;
+        padding: 10px;
+        align-items: center;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    form button {
+        background-color: #8b5b2b;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    form button:hover {
+        background-color: #6e451f;
+    }
+    
+    .preview-image, .preview-video {
+        max-width: 100%;
+        height: auto;
+        margin-top: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .container-start {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .container-start-combo1, .container-start-combo2 {
+            justify-content: center;
+        }
+    
+        .container-start-title {
+            margin-left: 0;
+            text-align: center;
+        }
+    
+        .container-start-buttons {
+            margin-bottom: 10px;
+            margin-right: 0;
+        }
+    
+        form {
+            width: 100%;
+            padding: 10px;
+        }
+    
+        #map {
+            height: 300px;
+        }
+    }
+    
+    @media (max-width: 820px) and (max-height: 1180px) {
+        h1 {
+            font-size: 30px;
+        }
+    
+        .container-start-logo img {
+            width: 100px;
+            height: 70px;
+        }
+    
+        .container-start-logo2 img {
+            width: 50px;
+            height: 50px;
+        }
+    
+        .container-start-combo1, .container-start-combo2 {
+            justify-content: center;
+            width: 100%;
+        }
+    
+        .container-start {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
+    @media (max-width: 600px) and (max-height: 1000px) {
+        .preview-image, .preview-video {
+            max-width: 100px;
+            height: auto;
+            margin-top: 15px;
+        }
+    
+        h1 {
+            font-size: 30px;
+        }
+    
+        .container-start-logo img {
+            width: 100px;
+            height: 70px;
+        }
+    
+        .container-start-logo2 img {
+            width: 50px;
+            height: 50px;
+        }
+    
+        .container-start-combo1, .container-start-combo2 {
+            justify-content: center;
+            width: 100%;
+        }
+    
+        .container-start {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    </style>
+
+
+</html>

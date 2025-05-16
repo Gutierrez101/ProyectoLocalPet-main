@@ -1,0 +1,7 @@
+proyecto/proyecto/__pycache__/
+proyecto/paginaWeb/__pycache__/
+.venv/
+.vscode/
+proyecto/db.sqlite3
+proyecto/media/mascotas/
+proyecto/paginaWeb/tempCodeRunnerFile.py

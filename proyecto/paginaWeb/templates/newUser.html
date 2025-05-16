@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - LocalPet</title>
+    <link rel="stylesheet" href="{% static '/paginaweb/newUser.css' %}">
+    <link rel="stylesheet" href="{% static '/paginaweb/popup.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container-start">
+            <div class="container-start-combo1">
+                <div class="container-start-logo"><img src="{% static '/paginaweb/perro.png' %}" alt="Logo"></div>
+                <div class="container-start-title"><h1>LOCALPET</h1></div>
+            </div>
+            <div class="container-start-combo2">  
+                <div class="container-start-buttons">
+                    <button class="container-start-buttons-login" onclick="window.location.href='{% url 'index' %}'">Inicio</button>
+                    <button class="container-start-buttons-help" onclick="window.location.href='index.html'">Ayuda</button>
+                </div>
+                <div class="container-start-logo2"><img src="{% static '/paginaweb/huella.png' %}" alt="Huella"></div>
+            </div>  
+        </div>
+    </header>
+    
+    <main>
+        <h1 class="titulo">Registro Nuevo Usuario</h1>
+        <form class="registro-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="nombre"><b>Nombre:</b></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+            
+            <label for="telefono"><b>Teléfono:</b></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" pattern="[0-9]*" required onkeypress="return isNumberKey(event)">
+            
+            <label for="correo"><b>Correo electrónico:</b></label>
+            <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+            
+            <label for="contrasena"><b>Contraseña:</b></label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+            
+            <button class="Registrar" type="submit">Registrar</button>
+        </form>
+    </main>
+    <div class="modal-container" id="modal-container">
+        <div class="modal">
+            <h2>¡Registro exitoso!</h2>
+            <p>¡Bienvenido a LocalPet! Ahora puedes iniciar sesión con tu correo y contraseña.</p>
+            <button onclick="window.location.href='{% url 'login' %}'">Iniciar sesión</button>
+        </div>
+    </div>
+
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function showModal(event) {
+            event.preventDefault();
+            document.getElementById('modal-container').classList.add('show');
+            return false;
+        }
+    </script>
+</body>
+</html>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #e2caa5;
+}
+.container-start {
+    background-color: #8b5b2b;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 0px 15px;
+}
+
+/*Esto modifica el combo1*/
+.container-start-combo1 {
+    display: flex;
+    align-items: center;
+}
+
+.container-start-title {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+.container-start-logo img {
+    width: 130px;
+    height: 100px;
+}
+
+
+h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight:bolder;
+}
+
+/*Esto modifica el combo2*/
+.container-start-combo2{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 880px;
+}
+
+.container-start-buttons{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    margin-right: 25px;
+    gap: 10px;
+}
+.container-start-buttons button {
+    background-color: transparent;
+    color: white;
+    font-weight: bolder;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+
+}
+
+.container-start-buttons button:hover {
+    text-decoration: underline;
+}
+
+.container-start-logo2 {
+    align-items: center;
+    margin-bottom: 15px;
+    align-self: flex-end;
+    margin-right: 15px;
+}
+.container-start-logo2 img {
+    width: 70px;
+    height: 70px;
+}   
+</style>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar</title>
+    {% load static %}
+</head>
+<body>
+    <header>
+        <div class="container-start">
+            <div class="container-start-combo1">
+                <div class="container-start-logo"><img src="{% static '/paginaweb/perro.png' %}" alt="Logo"></div>
+                <div class="container-start-title"><h1>LOCALPET</h1></div>
+            </div>
+            <div class="container-start-combo2">  
+                <div class="container-start-buttons">
+                    <button class="container-start-buttons-login" onclick="window.location.href='{% url 'login' %}'">Inicio</button>
+                    <button class="container-start-buttons-help" onclick="window.location.href='{% url 'index' %}'">Ayuda</button>
+                </div>
+                <div class="container-start-logo2"><img src="{% static '/paginaweb/huella.png' %}" alt="Huella"></div>
+            </div>  
+        </div>
+    </header>
+<main> 
+    <div class="container-mascota">
+        <h2>Reporte de Mascotas</h2>
+
+        {% for mascota in Mascotas %}
+        <div class="container-mascota-listado1">
+            <div class="mascota-imagen">
+                <img src="{{ mascota.fotografia.url }}" alt="Mascota">
+            </div>
+            <div class="mascota-info">
+                <div class="info-row">
+                    <div class="info-item"><p>Raza:</p></div>
+                    <div class="info-background"><p>{{ mascota.raza }}</p></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-item"><p>Color:</p></div>
+                    <div class="info-background"><p>{{ mascota.color }}</p></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-item"><p>Tamaño:</p></div>
+                    <div class="info-background"><p>{{ mascota.tamaño }}</p></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-item"><p>Ubicación:</p></div>
+                    <div class="info-background"><p>{{ mascota.latitud }}  {{ mascota.longitud }}</p></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-item"><p>Información del contacto:</p></div>
+                    <div class="info-background"><p>{{ mascota.contacto }}</p></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-item"><p>Estado:</p></div>
+                    <div class="info-background {% if mascota.estado == 'Perdido' %}estado-perdido{% else %}estado-encontrado{% endif %}">
+                        <p>{{ mascota.estado }}</p>
+                    </div>
+                </div>
+    
+                <!-- Botón para cambiar el estado -->
+                {% if mascota.estado == "Perdido" %}
+                    <div class="info-row">
+                        <form action="{% url 'cambiar_estado_mascota' mascota.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-encontrado">Marcar como Encontrado</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button class="guardar-reporte" onclick="window.location.href='{% url 'buscar_mascota_perdida' %}'">Buscar Mascota Nueva</button>
+    </div>
+</main>
+</body>
+</html>
+
+<style>
+h2 {
+    text-align: center;
+    font-weight: bold;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e2caa5;
+    margin: 15px;
+    padding: 0;
+}
+
+/* Encabezado */
+.container-start {
+        background-color: #8b5b2b;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 0px 0px 15px;
+        flex-wrap: wrap;
+    }
+    
+    /*Esto modifica el combo1*/
+    .container-start-combo1 {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .container-start-title {
+        color: white;
+        font-size: 25px;
+        font-weight: bold;
+        margin-left: 25px;
+    }
+    
+    .container-start-logo img {
+        width: 130px;
+        height: 100px;
+    }
+    
+    .container-form {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto; /* Centra el contenedor */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    h1 {
+        margin: 0;
+        font-size: 55px;
+        font-weight: bolder;
+    }
+    
+    /*Esto modifica el combo2*/
+    .container-start-combo2 {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .container-start-buttons {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 15px;
+        margin-right: 25px;
+        gap: 10px;
+    }
+    
+    .container-start-buttons button {
+        background-color: transparent;
+        color: white;
+        font-weight: bolder;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    
+    .container-start-buttons button:hover {
+        text-decoration: underline;
+    }
+    
+    .container-start-logo2 {
+        align-items: center;
+        margin-bottom: 15px;
+        align-self: flex-end;
+        margin-right: 15px;
+    }
+    
+    .container-start-logo2 img {
+        width: 70px;
+        height: 70px;
+    }
+
+/* Contenido principal */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    background-color: #fff;
+    margin: 60px;
+    border-radius: 25px;
+}
+
+/* Tarjetas de mascotas */
+.container-mascota {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1350px;
+    height: auto;
+}
+
+.container-mascota-listado1, 
+.container-mascota-listado2 {
+    display: flex;
+    background-color: #fff7e6;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px;
+}
+
+.mascota-imagen img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    margin: 15px 40px;
+}
+
+.mascota-info {
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mascota-info p {
+    margin: 5px 0;
+    width: 200px;
+}
+
+/* Información de la mascota */
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info-item {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.info-background {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    font-weight: bold;
+}
+
+/* Estado de la mascota */
+.estado-perdido, .estado-encontrado {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.estado-perdido {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+.estado-encontrado {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+/* Botón para cambiar el estado */
+.btn-encontrado {
+    background-color: #2196F3; /* Azul */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-encontrado:hover {
+    background-color: #1976D2;
+}
+
+/* Botón de guardar reporte */
+.guardar-reporte {
+    background-color: #8b5b2b;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.guardar-reporte:hover {
+    background-color: #6e451f;
+}
+
+</style>
