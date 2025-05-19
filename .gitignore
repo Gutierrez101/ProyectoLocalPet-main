@@ -5,3 +5,7 @@ proyecto/paginaWeb/__pycache__/
 proyecto/db.sqlite3
 proyecto/media/mascotas/
 proyecto/paginaWeb/tempCodeRunnerFile.py
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
